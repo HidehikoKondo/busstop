@@ -7,7 +7,7 @@
   <meta property="og:title" content="次のバス（仮）" />
   <meta property="og:site_name" content="次のバス（仮）｜次に来るバスの時刻がわかるアプリ" />
   <meta property="og:type" content="website" />
-  <meta property="og:description" content="バイクを停められる場所をみんなでシェアしよう！" />
+  <meta property="og:description" content="今いるバス停の次に来るバスの時刻が一目瞭然でわかるアプリです" />
   <meta property="og:url" content="https://hidehikokondo.github.io/busstop/">
   <meta property="og:image" content="https://hidehikokondo.github.io/busstop/images/OGP.png" />
 
@@ -19,7 +19,7 @@
   <script>
     window.addEventListener('load', function () {
       if ('serviceWorker' in navigator) {
-        // navigator.serviceWorker.register("https://tometa.bike/sw.js");
+        navigator.serviceWorker.register("https://hidehikokondo.github.io/busstop/sw.js");
       }
     });
   </script>
@@ -57,17 +57,14 @@
           <ons-list-item onclick="fn.load('home.html')" tappable>
             マップ
           </ons-list-item>
-          <ons-list-item onclick="fn.load('login.html')" tappable>
-            ログイン
+          <ons-list-item onclick="fn.load('about.html')" tappable>
+            BusStopについて
           </ons-list-item>
           <ons-list-item onclick="fn.load('mylist.html')" tappable>
-            あなたの投稿
+            開発者を支援
           </ons-list-item>
           <ons-list-item onclick="fn.load('settings.html')" tappable>
-            設定
-          </ons-list-item>
-          <ons-list-item onclick="fn.load('about.html')" tappable>
-            トメタについて
+            スポンサー
           </ons-list-item>
           <ons-list-item onclick="fn.load('privacypolicy.html')" tappable>
             利用規約<br />プライバシーポリシー
@@ -156,67 +153,29 @@
       </ons-toolbar>
       <ons-card>
         <ons-list>
-          <ons-list-header>設定項目</ons-list-header>
+          <ons-list-header>スポンサー</ons-list-header>
           <ons-list-item>
             <div class="center">
-              プッシュ通知
-            </div>
-            <div class="right">
-              <ons-switch checked></ons-switch>
+              ad
             </div>
           </ons-list-item>
           <ons-list-item>
             <div class="center">
-              GPS
-            </div>
-            <div class="right">
-              <ons-switch checked></ons-switch>
+              ad
             </div>
           </ons-list-item>
           <ons-list-item>
             <div class="center">
-              ダークモード
-            </div>
-            <div class="right">
-              <ons-switch checked></ons-switch>
+              ad
             </div>
           </ons-list-item>
         </ons-list>
       </ons-card>
     </ons-page>
   </template>
-  <template id="login.html">
+  <template id="mylist.html">
     <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button onclick="fn.open()">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-        <div class="center">
-          Twitterログイン
-        </div>
-      </ons-toolbar>
-      <ons-card>
-        <h1>ユーザー情報</h1>
-        <table>
-          <tr>
-            <td>
-              <img id="userIcon" src="images/noname.png">
-              <input type="hidden" id="userID" value="">
-            </td>
-            <td>
-              <span id="twitterName">未ログイン</span>
-            </td>
-          </tr>
-        </table>
-        <ons-button id="loginButton" ripple onclick="twitterLogin();">Twitterログイン</ons-button>
-        <ons-button id="logoutButton" ripple onclick="twitterLogout();">Twitterログアウト</ons-button>
-        <script>
-          twitterStatus();
-        </script>
-      </ons-card>
-
+      <a href="https://www.amazon.jp/hz/wishlist/ls/304EC2AXT65VK?ref_=wl_share" target="_blank">開発者を支援</a>
     </ons-page>
   </template>
   <template id="about.html">
@@ -232,24 +191,23 @@
         </div>
       </ons-toolbar>
       <ons-card>
-        <h1>まだ開発中です！</h1>
+        <h2>まだ開発中です！</h2>
         <p color="red">
-          まだ開発中なので動いていない機能もありますのでご了承ください。正式リリースしたらお知らせします。
+          まだ開発中なので動いていない機能もありますのでご了承ください。
         </p>
-        <h1>できること</h1>
+        <h2>できること</h2>
         <p>
-          バイクを置ける場所を投稿、情報共有ができるアプリ（になる予定です）
+          いま一番近くにあるバス停の次に来るバスの時刻を検索できます。
         </p>
-        <h1>禁止事項</h1>
+        <h2>免責事項</h2>
         <ul>
-          <li>駐車違反となる場所の投稿</li>
-          <li>明らかに迷惑となる場所の投稿</li>
-          <li>嘘の情報の投稿</li>
+          <li>全ての情報が正確であることを保証するものではありません</li>
+          <li>交通事情により表示した時刻にバスが来ないことがあります</li>
+          <li>このアプリを利用したことによる事故やトラブルには一切の責任を負いません</li>
         </ul>
-        <p> ※当アプリの管理者が不適切と判断した投稿は削除します</p>
-        <h1>開発者について</h1>
+        <h2>開発者について</h2>
         <p>UDONKONET</p>
-        <a href="http://www.udonko.net" target="_blank">http://www.udonko.net</a>
+        <a href="https://www.udonko.net" target="_blank">https://www.udonko.net</a>
       </ons-card>
     </ons-page>
   </template>
@@ -267,18 +225,18 @@
         </div>
       </ons-toolbar>
       <ons-card>
-        <h1>個人情報の利用目的</h1>
+        <h2>個人情報の利用目的</h2>
         <p>当アプリでは、メールでのお問い合わせなどの際に、名前、メールアドレス等の個人情報をご登録いただく場合がございます。
           これらの個人情報はお問い合わせに対する回答や必要な情報を電子メールなどでご連絡する場合に利用させていただくものであり、個人情報をご提供いただく際の目的以外では利用いたしません。</p>
-        <h1>個人情報の第三者への開示</h1>
+        <h2>個人情報の第三者への開示</h2>
         <p>当アプリでは、個人情報は適切に管理し、以下に該当する場合を除いて第三者に開示することはありません。<br />
           ・本人のご了解がある場合<br />
           ・法令等への協力のため、開示が必要となる場合<br /></p>
-        <h1>個人情報の開示、訂正、追加、削除、利用停止</h1>
+        <h2>個人情報の開示、訂正、追加、削除、利用停止</h2>
         <p>ご本人からの個人データの開示、訂正、追加、削除、利用停止のご希望の場合には、ご本人であることを確認させていただいた上、速やかに対応させていただきます。</p>
-        <h1>位置情報の利用目的</h1>
+        <h2>位置情報の利用目的</h2>
         <p>当サイトでは地図を利用する当アプリのためお使いのPC、スマホから位置情報を取得します。投稿した駐輪場情報と位置情報を紐づけるために利用をします。</p>
-        <h1>位置情報の第三者への提供について</h1>
+        <h2>位置情報の第三者への提供について</h2>
         <p>当アプリで投稿された情報は当アプリの利用者が閲覧できます<br />
           ・駐輪場情報（ツイート）<br />
           ・Twitterユーザー名
@@ -286,7 +244,7 @@
         </p>
         <p>当アプリで利用しているサーバーに上記の情報も保存されます。</p>
         <p>当アプリの利用者の位置情報をリアルタイムに追跡し、その情報を保存および第三者への提供をすることはありません。</p>
-        <h1>クッキー（Cookie）</h1>
+        <h2>クッキー（Cookie）</h2>
         <p>当アプリでは、一部のコンテンツについてCookie（クッキー）を利用しています。
           Cookieとは、サイトにアクセスした際にブラウザに保存される情報ですが、お名前やメールアドレス等の個人情報は含まれません。
           当アプリにアクセスいただいた方々に効果的な広告を配信するためやアクセス解析にCookieの情報を利用させていただく場合があります。
@@ -295,14 +253,14 @@
           ・Google Analytics<br />
           ・Adsense<br />
           ・Firebase</p>
-        <h1>第三者配信の広告サービスとCookie</h1>
+        <h2>第三者配信の広告サービスとCookie</h2>
         <p>当アプリでは、第三者配信の広告サービスである「Adsense」を利用し、第三者配信事業者や広告ネットワークの配信する広告が掲載されます。
           この広告サービスでは、上述のCookieを利用することで、ユーザーが当アプリに訪れた情報や過去他のサイトに訪れた情報に基づき、適切な広告を表示します。
           Cookieを利用した広告を無効にする方法についてはこちらの広告設定をご参照ください。</p>
-        <h1>プライバシーポリシーの変更について</h1>
+        <h2>プライバシーポリシーの変更について</h2>
         <p>当アプリは、個人情報に関して適用される日本の法令を遵守するとともに、本ポリシーの内容を適宜見直しその改善に努めます。
           修正された最新のプライバシーポリシーは常に本ページにて開示されます。</p>
-        <h1>免責事項</h1>
+        <h2>免責事項</h2>
         <p>当アプリのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。
           当アプリに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。</p>
       </ons-card>
@@ -311,8 +269,7 @@
   </template>
   <div class="toast" id="GDPR">
     <div class="toast__message">
-      【開発中です】このサイトでは、サイトや広告を改善するためにCookieを利用します。サイトを利用することで、Cookieの使用に同意するものとします。また当サービスの利用規約にも同意したものとします。
-      <!-- このアプリは開発中です。まだ動作しない機能もあります。ご注意ください。 -->
+      【開発中です】GDPRの表記。
     </div>
     <button class="fab fab--mini" onclick="getElementById('GDPR').remove();" style="min-width: 40px;"><i
         class="zmdi zmdi-close"></i></button>
