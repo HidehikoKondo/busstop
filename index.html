@@ -4,27 +4,25 @@
 <head>
   <title>TOMETA</title>
   <!--OGP-->
-  <meta property="og:title" content="トメタ（仮）" />
-  <meta property="og:site_name" content="トメタ（仮）｜バイク駐輪場情報シェアアプリ" />
+  <meta property="og:title" content="次のバス（仮）" />
+  <meta property="og:site_name" content="次のバス（仮）｜次に来るバスの時刻がわかるアプリ" />
   <meta property="og:type" content="website" />
   <meta property="og:description" content="バイクを停められる場所をみんなでシェアしよう！" />
-  <meta property="og:url" content="https://tometa.bike/">
-  <meta property="og:image" content="https://tometa.bike/images/OGP.png" />
+  <meta property="og:url" content="https://hidehikokondo.github.io/busstop/">
+  <meta property="og:image" content="https://hidehikokondo.github.io/busstop/images/OGP.png" />
 
   <link rel="mask-icon" sizes="any" href="images/favicon.svg" color="#0bd">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 
   <!-- Service Worker -->
-  <link rel="manifest" href="https://tometa.bike/manifest.json">
+  <link rel="manifest" href="https://hidehikokondo.github.io/busstop/manifest.json">
   <script>
     window.addEventListener('load', function () {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register("https://tometa.bike/sw.js");
+        // navigator.serviceWorker.register("https://tometa.bike/sw.js");
       }
     });
   </script>
-
-
 
   <!-- js読み込み -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
