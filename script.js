@@ -1,4 +1,4 @@
-//getパラメータ取得 (位置情報付きのリンクから開いたとき)
+//getパラメータ取得 (位置情報付きのリンクから開いたとき　 - twitterの投稿)
 var queryString = window.location.search;
 var queryObject = new Object();
 if (queryString) {
@@ -98,7 +98,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
-        mapId: 'f8b2ac2552664eae'
+        mapId: '9664d4d621b2e362'
     });
 
     map.moveCamera({
