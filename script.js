@@ -1,74 +1,3 @@
-//getパラメータ取得 (位置情報付きのリンクから開いたとき　 - twitterの投稿)
-var queryString = window.location.search;
-var queryObject = new Object();
-if (queryString) {
-    queryString = queryString.substring(1);
-    var parameters = queryString.split("&");
-
-    for (var i = 0; i < parameters.length; i++) {
-        var element = parameters[i].split("=");
-
-        var paramName = decodeURIComponent(element[0]);
-        var paramValue = decodeURIComponent(element[1]);
-
-        queryObject[paramName] = paramValue;
-    }
-}
-
-var defaultLat = queryObject["lat"];
-var defaultLng = queryObject["lng"];
-
-// alert(queryObject["lat"]);
-// alert(queryObject["lng"]);
-
-//マーカーの配置場所配列（テスト用）
-const locations = [
-    { lat: 35.1709071, lng: 136.909453 },
-    { lat: 35.1709076, lng: 136.8074532 },
-    { lat: 35.1709076, lng: 136.7074532 },
-    { lat: 35.1709076, lng: 136.6074532 },
-    { lat: 35.1709076, lng: 136.5074532 },
-    { lat: 35.1709076, lng: 136.4074532 },
-    { lat: 35.1709076, lng: 136.3074532 },
-    { lat: 35.1709076, lng: 136.2074532 },
-    { lat: 35.1709076, lng: 136.1074532 },
-    { lat: 35.1709076, lng: 136.0074532 },
-];
-
-// < !--メニューの制御 -->
-//OnsenUI初期設定
-window.fn = {};
-window.fn.open = function () {
-    var menu = document.getElementById("menu");
-    menu.open();
-};
-window.fn.load = function (page) {
-    var content = document.getElementById("content");
-    var menu = document.getElementById("menu");
-    content.load(page).then(menu.close.bind(menu));
-};
-
-//アクションシートの制御
-var app = {};
-ons.ready(function () {
-    ons.createElement("action-sheet.html", { append: true }).then(function (
-        sheet
-    ) {
-        app.showFromTemplate = sheet.show.bind(sheet);
-        app.hideFromTemplate = sheet.hide.bind(sheet);
-    });
-});
-
-//投稿用データ保持（ログイン時とマーカークリック時に更新）
-var postData = {
-    userID: "",
-    name: "",
-    lat: "",
-    lng: "",
-    area: "",
-    comment: "",
-};
-
 // <!--マップの制御 -->
 let map;
 let infoWindow;
@@ -76,25 +5,8 @@ let currenMarker;
 var selectedLatLng;
 var selectedAddress;
 
+//マップの初期化
 function initMap() {
-    //マップの初期位置
-    // map = new google.maps.Map(document.getElementById("map"), {
-    //     zoom: 18,
-    //     center: { lat: 35.1709076, lng: 136.9074532 },
-    //     mapId: 'f8b2ac2552664eae',
-    //     disableDefaultUI: true,
-    //     //                zoomControl: true,
-    //     streetViewControl: false,
-    //     //お店のアイコン削除
-    //     clickableIcons: false,
-    //     styles: [
-    //         {
-    //             featureType: "poi.business",
-    //             stylers: [{ visibility: "off" }],
-    //         },
-    //     ],
-    // });
-
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
@@ -105,53 +17,8 @@ function initMap() {
         center: new google.maps.LatLng(37.7893719, -122.3942),
         zoom: 16,
         heading: 320,
-        tilt: 47.5
+        tilt: 90
     });
-
-    const degreesPerSecond = 3;
-
-    function animateCamera(time) {
-        // Update the heading, leave everything else as-is.
-        map.moveCamera({
-            heading: (time / 1000) * degreesPerSecond
-        });
-
-        requestAnimationFrame(animateCamera);
-    }
-
-    // Start the animation.
-    requestAnimationFrame(animateCamera);
-
-    //ストリートビュー
-    const astorPlace = { lat: 40.729884, lng: -73.990988 };
-    // Set up the markers on the map
-    const cafeMarker = new google.maps.Marker({
-        position: { lat: 40.730031, lng: -73.991428 },
-        map,
-        icon:
-            "https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe|FFFF00",
-        title: "Cafe",
-    });
-    const bankMarker = new google.maps.Marker({
-        position: { lat: 40.729681, lng: -73.991138 },
-        map,
-        icon:
-            "https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=dollar|FFFF00",
-        title: "Bank",
-    });
-    const busMarker = new google.maps.Marker({
-        position: { lat: 40.729559, lng: -73.990741 },
-        map,
-        icon:
-            "https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=bus|FFFF00",
-        title: "Bus Stop",
-    });
-    // We get the map's default panorama and set up some defaults.
-    // Note that we don't yet set it visible.
-    panorama = map.getStreetView(); // TODO fix type
-
-    //ジオコーディングの初期化
-    const geocoder = new google.maps.Geocoder();
 
     //現在地用のマーカー
     currenMarker = new google.maps.Marker({
@@ -187,7 +54,7 @@ function initMap() {
     marker.addListener("click", function () {
         // マーカーをクリックしたとき
         selectedLatLng = marker.position;
-        infoWindow.close(); // 吹き出しの表示
+        infoWindow.close(); // 吹き出しの表示l
         geocodeLatLng(geocoder, map, infoWindow, marker);
         app.showFromTemplate();
     });
@@ -209,14 +76,6 @@ function initMap() {
         infoWindow.open(map, marker);
     }
 
-    //getで位置情報があったらマーカーを設置して移動
-    if (defaultLat && defaultLng) {
-        var defaultPosition = new google.maps.LatLng(defaultLat, defaultLng);
-        marker.setPosition(defaultPosition);
-        map.panTo(defaultPosition);
-        geocodeLatLng(geocoder, map, infoWindow, marker);
-        infoWindow.open(map, marker);
-    }
 
     //マーカーのラベル
     // Create an array of alphabetical characters used to label the markers.
@@ -266,6 +125,7 @@ function currentPosition() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 }
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     var message = browserHasGeolocation
         ? "エラー: GPSの位置情報が読み込めませんでした"
@@ -273,50 +133,32 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     ons.notification.toast(message, { timeout: 3000, animation: "fall" });
 }
 
-function geocodeLatLng(geocoder, map, infowindow, marker) {
-    const latlng = marker.position;
-    geocoder.geocode({ location: latlng }, (results, status) => {
-        if (status === "OK") {
-            if (results[0]) {
-                // marker = new google.maps.Marker({
-                //     position: latlng,
-                //     map: map,
-                // });
-                selectedAddress = results[0].formatted_address + "付近";
-                infowindow.setContent(results[0].formatted_address + "付近");
-                infowindow.open(map, marker);
-            } else {
-                window.alert("No results found");
-            }
-        } else {
-            window.alert("Geocoder failed due to: " + status);
-        }
+
+
+
+// < !--メニューの制御 -->
+//OnsenUI初期設定
+window.fn = {};
+window.fn.open = function () {
+    var menu = document.getElementById("menu");
+    menu.open();
+};
+window.fn.load = function (page) {
+    var content = document.getElementById("content");
+    var menu = document.getElementById("menu");
+    content.load(page).then(menu.close.bind(menu));
+};
+
+//アクションシートの制御
+var app = {};
+ons.ready(function () {
+    ons.createElement("action-sheet.html", { append: true }).then(function (
+        sheet
+    ) {
+        app.showFromTemplate = sheet.show.bind(sheet);
+        app.hideFromTemplate = sheet.hide.bind(sheet);
     });
-}
-
-//アクションシートのストリートビュー
-function openStreetView() {
-    panorama.setPosition(selectedLatLng);
-    panorama.setPov(
-        /** @type {google.maps.StreetViewPov} */ {
-            heading: 265,
-            pitch: 0,
-        }
-    );
-
-    //ストリートビューを閉じたらメニューを再表示
-    panorama.addListener("closeclick", function (argument) {
-        openMenu();
-    });
-
-    const toggle = panorama.getVisible();
-    if (toggle == false) {
-        panorama.setVisible(true);
-        closeMenu();
-    } else {
-        panorama.setVisible(false);
-    }
-}
+});
 
 //メニューの表示非表示
 function openMenu() {
@@ -326,51 +168,4 @@ function openMenu() {
 function closeMenu() {
     document.getElementById("humbrugerMenu").hide();
     document.getElementById("currentPositionButton").hide();
-}
-
-//投稿ボタン
-function share() {
-    if (isLogin()) {
-        postToDB();
-    } else {
-        alert("ログインしてください");
-    }
-}
-
-function postToDB() {
-    var latLng = selectedLatLng.toUrlValue();
-    var lat = latLng.split(",")[0];
-    var lng = latLng.split(",")[1];
-    var comment = "コメント";
-    var area = "エリア";
-    var userID = postData["userID"];
-    var name = postData["name"];
-
-    console.log(lat);
-    console.log(lng);
-    console.log(comment);
-    console.log(userID);
-    console.log(name);
-
-    writeUserData(userID, name, lat, lng, area, comment);
-}
-
-function postToTwitter() {
-    var latLng = selectedLatLng.toUrlValue();
-    var lat = latLng.split(",")[0];
-    var lng = latLng.split(",")[1];
-    console.log(lat);
-    console.log(lng);
-
-    // とりあえずTwitterにシェア
-    var url =
-        "https://twitter.com/intent/tweet?text=%E3%83%90%E3%82%A4%E3%82%AF%E7%BD%AE%E3%81%91%E3%82%8B%E3%82%88[" +
-        selectedAddress +
-        "]&hashtags=%E3%83%88%E3%83%A1%E3%82%BF,%E3%83%90%E3%82%A4%E3%82%AF%E9%A7%90%E8%BC%AA%E5%A0%B4&url=https%3A%2F%2Ftometa.bike%2F%3Flat%3D" +
-        lat +
-        "%26lng%3D" +
-        lng;
-    location.href = url;
-
-    //ToDo、何かしらの保存する機能をつける
 }
