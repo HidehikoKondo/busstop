@@ -7,9 +7,6 @@ var selectedAddress;
 
 //マップの初期化
 function initMap() {
-
-
-
     //初期化
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -34.397, lng: 150.644 },
@@ -29,7 +26,7 @@ function initMap() {
         // draggingCursor: "url(./cursor.png), auto",
         fullscreenControl: false,
         gestureHandling: true,
-        heading: 270,
+        heading: 0,
         keyboardShortcuts: false,
         mapTypeControl: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -43,7 +40,6 @@ function initMap() {
         zoomControl: true,
     };
     map.setOptions(options);
-
 
 
     //カメラの設定
