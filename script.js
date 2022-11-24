@@ -7,12 +7,46 @@ var selectedAddress;
 
 //マップの初期化
 function initMap() {
+
+
+
+    //初期化
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
         mapId: '9664d4d621b2e362'
     });
 
+    // マップの設定
+    var options = {
+        center: new google.maps.LatLng(35, 139),
+        zoom: 12,
+        clickableIcons: false,
+        disableDefaultUI: false,
+        disableDoubleClickZoom: false,
+        draggable: true,
+        // draggableCursor: "url(./cursor.png), auto",
+        // draggingCursor: "url(./cursor.png), auto",
+        fullscreenControl: false,
+        gestureHandling: true,
+        heading: 270,
+        keyboardShortcuts: false,
+        mapTypeControl: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        maxZoom: 20,
+        minZoom: 10,
+        rotateControl: true,
+        scaleControl: false,
+        scrollwheel: true,
+        streetViewControl: false,
+        tilt: 110,
+        zoomControl: true,
+    };
+    map.setOptions(options);
+
+
+
+    //カメラの設定
     map.moveCamera({
         center: new google.maps.LatLng(37.7893719, -122.3942),
         zoom: 16,
@@ -27,23 +61,24 @@ function initMap() {
         title: "現在地",
         icon: "images/currentPosition.svg",
     });
+
     // 現在地のマーカーをクリックしたとき
     currenMarker.addListener("click", function (e) {
         selectedLatLng = currenMarker.position;
         infoWindow.close();
         app.showFromTemplate();
         infoWindow.open(map, currenMarker); // 吹き出しの表示
-        geocodeLatLng(geocoder, map, infoWindow, currenMarker);
+    });
+
+    //吹き出し
+    infoWindow = new google.maps.InfoWindow({
+        // 吹き出しの追加
+        content: "xxx",
     });
 
     //起動後に現在地に移動
     currentPosition();
 
-    //吹き出し
-    infoWindow = new google.maps.InfoWindow({
-        // 吹き出しの追加
-        content: "現在地",
-    });
 
     // マーカー（クリック）
     var marker = new google.maps.Marker({
@@ -51,17 +86,17 @@ function initMap() {
         map: map,
         draggable: true,
     });
+
+    // マーカーをクリックしたとき
     marker.addListener("click", function () {
-        // マーカーをクリックしたとき
         selectedLatLng = marker.position;
         infoWindow.close(); // 吹き出しの表示l
-        geocodeLatLng(geocoder, map, infoWindow, marker);
         app.showFromTemplate();
     });
+
+    // マーカーをドラッグ後
     marker.addListener("dragend", function () {
-        // マーカーをドラッグ後
         selectedLatLng = marker.position;
-        geocodeLatLng(geocoder, map, infoWindow, marker);
     });
 
     //マップのクリックイベント
@@ -72,37 +107,12 @@ function initMap() {
     function placeMarkerAndPanTo(latLng, map, marker) {
         marker.setPosition(latLng);
         map.panTo(latLng);
-        geocodeLatLng(geocoder, map, infoWindow, marker);
         infoWindow.open(map, marker);
+        infoWindow.content = "xxwwwx";
     }
-
-
-    //マーカーのラベル
-    // Create an array of alphabetical characters used to label the markers.
-    const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // Add some markers to the map.
-    // Note: The code uses the JavaScript Array.prototype.map() method to
-    // create an array of markers based on a given "locations" array.
-    // The map() method here has nothing to do with the Google Maps API.
-    const markers = locations.map((location, i) => {
-        return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length],
-        });
-    });
-
-    //クラスター
-    // Add a marker clusterer to manage the markers.
-    new MarkerClusterer(map, markers, {
-        imagePath:
-            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-    });
-
-    // document.getElementById("submit").addEventListener("click", () => {
-    //     geocodeLatLng(geocoder, map, infoWindow);
-    // });
 }
 
+//現在地
 function currentPosition() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -126,6 +136,8 @@ function currentPosition() {
     }
 }
 
+
+//GPS
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     var message = browserHasGeolocation
         ? "エラー: GPSの位置情報が読み込めませんでした"
@@ -136,7 +148,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 
 
-// < !--メニューの制御 -->
+// メニューの制御
 //OnsenUI初期設定
 window.fn = {};
 window.fn.open = function () {

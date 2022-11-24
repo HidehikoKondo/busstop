@@ -38,18 +38,10 @@
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
   <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
-
-
 </head>
 
 <body>
-  <!--firebase設定-->
-  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
-  <script src="./firebaseConfig.js"></script>
-
+  <!-- メニュー -->
   <ons-splitter>
     <ons-splitter-side id="menu" side="left" width="220px" collapse>
       <ons-page>
@@ -77,40 +69,11 @@
 
   <template id="home.html">
     <ons-page>
-      <!-- <ons-toolbar>
-                <div class="left">
-                    <ons-toolbar-button onclick="fn.open()">
-                        <ons-icon icon="md-menu"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-                <div class="center">
-                    マップ
-                </div>
-            </ons-toolbar> -->
-      <!-- <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
-        Swipe right to open the menu!
-        </p> -->
-
-      <!-- <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1630.7190888019124!2d136.90997412597275!3d35.170629887057636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1590747266832!5m2!1sja!2sjp"
-                width="100%"" height=" 100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-                tabindex="0"></iframe>
-            </iframe> -->
-
-
+      <!-- 地図の埋め込み -->
       <div id="map"></div>
-
-      <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-      <!-- <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UJ22OWXZvry9vyPGVyPXxxjnMZjtjPE&callback=initMap&libraries=&v=weekly"
-                async></script> -->
-      <!-- <script async
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UJ22OWXZvry9vyPGVyPXxxjnMZjtjPE&callback=initMap">
-                </script> -->
       <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCXp5GHg44JwGDhpK8MyiiXwNK1XLN8jI&v=beta&callback=initMap">
         </script>
-
 
       <!--ハンバーガーメニュー-->
       <ons-speed-dial id="humbrugerMenu" position="left top" direction="down" onclick="fn.open()">
@@ -269,19 +232,11 @@
   </template>
   <div class="toast" id="GDPR">
     <div class="toast__message">
-      【開発中です】GDPRの表記。
+      【開発中です】
     </div>
     <button class="fab fab--mini" onclick="getElementById('GDPR').remove();" style="min-width: 40px;"><i
         class="zmdi zmdi-close"></i></button>
   </div>
-
-  <!-- js読み込み -->
-  <script src="./database.js"></script>
-  <script src="./twitter.js"></script>
-
-  <script>
-    twitterStatus();
-  </script>
 </body>
 
 </html>
