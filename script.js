@@ -69,7 +69,8 @@ function initMap() {
     //吹き出し
     infoWindow = new google.maps.InfoWindow({
         // 吹き出しの追加
-        content: "xxx",
+        content: "<h4>島田住宅行き</h4><strong>10:21</strong><hr><h4>島田住宅行き</h4><strong>10:21</strong><hr><h4>島田住宅行き</h4><strong>10:21</strong><hr><h4>島田住宅行き</h4><strong>10:21</strong><hr><h4>島田住宅行き</h4><strong>10:21</strong><hr><h4>島田住宅行き</h4><strong>10:21</strong><hr><h4>島田住宅行き</h4><strong>10:21</strong><hr>",
+        ariaLabel: "島田住宅行き"
     });
 
     //起動後に現在地に移動
@@ -104,7 +105,9 @@ function initMap() {
         marker.setPosition(latLng);
         map.panTo(latLng);
         infoWindow.open(map, marker);
-        infoWindow.content = "xxwwwx";
+        infoWindow.content = "<h1>xxwwwx</h1>";
+        infoWindow.ariaLabel = "島田住宅行き";
+
     }
 }
 
